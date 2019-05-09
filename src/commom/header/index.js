@@ -19,22 +19,33 @@ import { CSSTransition } from 'react-transition-group';
 import { actionCreators } from './store';
 
 class Header extends Component {
-    getListArea(){
-        if (this.props.focused) {
+    getListArea() {
+        const { focused ,mouseIn, list ,page,totalPage, handleMouseEnter, handleMouseLeave,handleChangePage} = this.props;
+        const newList = list.toJS();
+        const pageList = []
+
+        if(newList.length){
+            for(let i = (page-1) * 10; i < page * 10; i++){
+                pageList.push(
+                    <SearchInfoItem key={newList[i]}>{newList[i]}</SearchInfoItem>
+                )
+            }
+        } 
+       
+        if (focused || mouseIn) {
             return (
-                <SearchInfo>
+                <SearchInfo onMouseEnter = {handleMouseEnter}
+                            onMouseLeave = {handleMouseLeave}
+                >
                     <SearchInfoTitle>
                         热门搜索
-                    <SearchInfoTitleSwitch>
-                            换一批
+                    <SearchInfoTitleSwitch onClick={()=>handleChangePage(page, totalPage,this.spinIcon)}>
+                    <i ref={(icon) => {this.spinIcon = icon}} className="iconfont spin">&#xe851;</i>
+                    换一批
                     </SearchInfoTitleSwitch>
                     </SearchInfoTitle>
-                    <SearchInfoList>
-                    {
-                        this.props.list.map((item) =>{
-                            return <SearchInfoItem key={item}>{item}</SearchInfoItem>
-                        })
-                    }
+                    <SearchInfoList> 
+                           {pageList}            
                     </SearchInfoList>
                 </SearchInfo>
             )
@@ -43,6 +54,7 @@ class Header extends Component {
         }
     }
     render() {
+        const { focused ,handlefocus,handleblur,list } = this.props;
         return (
             <HeaderWrapper>
                 <GlobalStyled />
@@ -54,17 +66,17 @@ class Header extends Component {
                         <NavItem className="left searchTop">
                             <SearchWrapper>
                                 <CSSTransition
-                                    in={this.props.focused}
+                                    in={focused}
                                     timeout={200}
                                     classNames='slide'
                                 >
                                     <SearhBar
-                                        className={this.props.focused ? 'focused' : ''}
-                                        onFocus={this.props.handlefocus}
-                                        onBlur={this.props.handleblur}
+                                        className={focused ? 'focused' : ''}
+                                        onFocus={()=>handlefocus(list)}
+                                        onBlur={handleblur}
                                     />
                                 </CSSTransition>
-                                <i className={this.props.focused ? 'focused iconfont' : 'iconfont'}>&#xe637;
+                                <i className={focused ? 'focused iconfont zoom' : 'iconfont zoom'}>&#xe637;
                             </i>
                                 {this.getListArea()}
                             </SearchWrapper>
@@ -83,7 +95,6 @@ class Header extends Component {
                 </InnerContainer>
             </HeaderWrapper>
         )
-
     }
 }
 
@@ -91,19 +102,48 @@ const mapStateToProps = (state) => {
     return {
         focused: state.getIn(['header', 'focused']),
         // state.get('header').get('focused'),
-        list:state.getIn(['header','list']),
+        list: state.getIn(['header', 'list']),
+        page:state.getIn(['header','page']),
+        totalPage: state.getIn(['header','totalPage']),
+        mouseIn:state.getIn(['header','mouseIn']),
     }
-}
+} 
 const mapDispatchToProps = (dispatch) => {
     return {
-        handlefocus() {
+        handlefocus(list) {
+            console.log(list)
+            if(list.size === 0){
+                dispatch(actionCreators.getList());
+            }
             dispatch(actionCreators.searchFocus());
-            dispatch(actionCreators.getList());
+            
         },
         handleblur() {
-            const action = actionCreators.searchBlur();
-            dispatch(action)
-        }
+            dispatch(actionCreators.searchBlur())
+        },
+        handleMouseEnter(){
+            dispatch(actionCreators.mouseEnter())
+        },
+        handleMouseLeave(){
+            dispatch(actionCreators.mouseLeave())
+        },
+        handleChangePage(page, totalPage,spin){
+            let orginAngle = spin.style.transform.replace(/[^0-9]/ig, '');   
+            if(orginAngle){
+                orginAngle = parseInt(orginAngle,10)
+            }else{
+                orginAngle=0
+            }
+            spin.style.transform ='rotate(' + (orginAngle + 360) + 'deg)';
+
+            if(page < totalPage){
+                dispatch(actionCreators.changePage(page + 1))
+            }
+            else{
+                dispatch(actionCreators.changePage(1))
+            }
+        },
+        
     }
 }
 

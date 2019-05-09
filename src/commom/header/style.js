@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import logoPic from '../../static/logo.png'
 
 export const HeaderWrapper = styled.div
-   `
+ `
     height:58px;
     min-width: 768px;
     max-width: 1440px;
@@ -41,10 +41,11 @@ height: 58px;
 export const SearchWrapper = styled.div
 `
 position: relative;
-.iconfont{
+.zoom{
    position: absolute;
     right: 10px;
     top: 6px; 
+    bottom:5px;
     width: 30px;
     line-height: 30px;
     border-radius: 30px;
@@ -112,6 +113,16 @@ export const SearchInfoTitleSwitch = styled.span
 `
 float:right;
 font-size:13px;
+cursor:pointer;
+.spin{
+   display:block;
+   float:left;
+   font-size:12px;
+   margin-right:2px;
+   transition: all .2s ease-in;
+   transform:rotate(0deg);
+   transform-origin:center center; 
+}
 `
 export const SearchInfoList = styled.div
 `

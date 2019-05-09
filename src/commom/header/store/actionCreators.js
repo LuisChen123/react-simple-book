@@ -1,7 +1,21 @@
 import * as constants from './constants'
 import {fromJS} from 'immutable';
-import Axios from 'axios';
+import axios from 'axios';
 
+const changeList = (data) => ({
+    type: constants.CHANGE_LIST,
+    data:fromJS(data),
+    totalPage:Math.ceil(data.length / 10)
+})
+
+
+
+// 上面是不需要暴露的文件  
+
+
+
+
+// 下面是需要暴露的文件
 
 export const searchFocus = () => ({
     type: constants.SEARCH_FOUCUS
@@ -11,14 +25,24 @@ export const searchBlur = () => ({
     type: constants.SEARCH_BLUR
 });
 
-export const changeList = (data) => ({
-    type: constants.CHANGE_LIST,
-    data:fromJS(data)
-})
+export const mouseEnter = () => ({
+    type: constants.MOUSE_ENTER
+});
+
+export const mouseLeave = () => ({
+    type: constants.MOUSE_LEAVE
+});
+
+export const changePage = (page) => ({
+    type: constants.CHANGE_PAGE,
+    page
+});
+
+
 
 export const getList = () => {
     return (dispatch) => {
-        Axios.get('/api/headerList.json').then((res) =>{  
+        axios.get('/api/headerList.json').then((res) =>{  
             const data = res.data;
             dispatch(changeList(data.data));
         }).catch((err)=>{
@@ -27,5 +51,8 @@ export const getList = () => {
 
     }
 };
+
+
+
  
 
