@@ -140,8 +140,7 @@ const mapDispatchToProps = (dispatch) => {
             else{
                 dispatch(actionCreators.changePage(1))
             }
-        },
-        
+        }      
     }
 }
 

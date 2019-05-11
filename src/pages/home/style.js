@@ -165,7 +165,6 @@ export const LargeQR = styled.div
 export const WriterWrapper = styled.div
     `
 width:100%;
-height:500px;
 `
 export const WriterTop = styled.div
     `
@@ -173,21 +172,28 @@ overflow:hidden;
 .leftTitle{
     display:inline-block;
     float:left;
-    font-size:15px;
+    font-size: 14px;
+    color: #969696;
 }
 .iconfont{
     float:right;
+    font-size: 14px;
+    color: #969696;
+    cursor:pointer;
 }
 .rightTitle{
     display:block;
     float:right;
-    font-size:15px;
+    font-size: 14px;
+    color: #969696;
+    cursor:pointer;
 }
 `
 export const WriterUl = styled.ul
-    `
+`
 .writerList{
     overflow:hidden;
+    margin: 10px 0px;
 }
 .avatar{
     float:left;
@@ -196,20 +202,30 @@ export const WriterUl = styled.ul
     border: 1px solid #ddd;
     border-radius: 50%;   
 }
-
 `
 export const FirstLine = styled.div
 `
 overflow:hidden;
 width:79%;
 height:30px;
+padding-left: 10px;
+box-sizing: border-box;
 .addToFav
 {
     float: right;
+    margin-top: 5px;
+    padding: 0;
+    font-size: 13px;
+    color: #42c02e;
    
 }
 .wirterName{
     float: left;
+    padding-top: 5px;
+    margin-right: 60px;
+    font-size: 14px;
+    display: block;
+
     }
 `
 export const SecLine = styled.div
@@ -217,11 +233,33 @@ export const SecLine = styled.div
 overflow:hidden;
 width:79%;
 height:30px;
+padding-left: 10px;
+box-sizing: border-box;
 .likes{
     float:right;
+    margin-top: 2px;
+    font-size: 12px;
+    color: #969696;
 }
 .totalWords{
      float:left;
+     margin-top: 2px;
+     font-size: 12px;
+     color: #969696;
 }
 `
-
+export const SeeMore = styled.div
+`
+width:100%;
+box-sizing: border-box;
+padding: 7px 7px 7px 12px;
+background-color: #f7f7f7;
+border: 1px solid #dcdcdc;
+border-radius: 4px;
+height:35px;
+.all{
+    font-size: 13px;
+    color: #787878;
+    text-align: center;
+}
+`
