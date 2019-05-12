@@ -49,12 +49,6 @@ export default (state = defaultState, action) => {
         
         case constants.MOUSE_LEAVE:
         return state.set('mouseIn',false)
-        
-        case constants.CHANGE_WRITER_LIST:
-        return state.merge({
-            list:action.data,
-            totalPage:action.totalPage,
-        })
 
         case constants.CHANGE_PAGE:
         return state.set('page', action.page)
