@@ -14,45 +14,41 @@ import { actionsCreators } from '../store';
 import { CSSTransition } from 'react-transition-group';
 
 class Writer extends Component {
+//ajax call的流程：
+//1.现在writer.js页面上触发，这个例子是用componentDidMount生命周期里的aa()进行触发
 
-
+    componentDidMount(){
+        console.log(this.props)
+        this.props.aa();
+    }
     getWriterList() {
         const { page, list } = this.props
-        const newList = list.toJS();
-        const pageList = [];
         console.log(list)
-        if (newList.length) {
-            for (let i = (page - 1) * 5; i < page * 5; i++) {
-                pageList.push(
-                    <li
-                        className="writerList"
-                    >
-                        <a href='/'>
-                            <img
-                                className="avatar"
-                                src="//upload.jianshu.io/users/upload_avatars/4263857/34d7b217-7338-48fe-81a1-98367fecdbee.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/96/h/96/format/webp"
-                                alt=""
-                            />
-                        </a>
-                        <FirstLine>
-                            <a href="">
-                                <p className='addToFav'>+关注</p>
-                            </a>
-                            <a>
-                                <h3 className='wirterName'>newList[i].id</h3>
-                            </a>
-                        </FirstLine>
-                        <SecLine>
-                            <p className='likes'>39.9k喜欢</p>
-                            <p className="totalWords">写了138.6k字 · </p>
-                        </SecLine>
-                    </li>
-                )
-            }
-        }else{
-            console.log("123")
-        }
-        
+        return (
+            <li
+                className="writerList"
+            >
+                <a href='/'>
+                    <img
+                        className="avatar"
+                        src="//upload.jianshu.io/users/upload_avatars/4263857/34d7b217-7338-48fe-81a1-98367fecdbee.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/96/h/96/format/webp"
+                        alt=""
+                    />
+                </a>
+                <FirstLine>
+                    <a href="">
+                        <p className='addToFav'>+关注</p>
+                    </a>
+                    <a>
+                        <h3 className='wirterName'>ssss</h3>
+                    </a>
+                </FirstLine>
+                <SecLine>
+                    <p className='likes'>39.9k喜欢</p>
+                    <p className="totalWords">写了138.6k字 · </p>
+                </SecLine>
+            </li>
+        )
     }
     render() {
         const { page, totalPage, handlePageChange } = this.props
@@ -88,24 +84,21 @@ class Writer extends Component {
 const mapStateToProp = (state) => {
     return {
         list: state.getIn(['home', 'list']),
-        page: state.getIn(['home', 'page']),
-        totalPage: state.getIn(['home', 'totalPage']),
+        //6.通过 react-redux 提供的 connect方法，我们自定义的mapStateToProp（） 会自动接收 store里的数据更新，
+        //也就是说，当store里的数据一旦发生变化，这个页面会自动获取最新的数据，我们在这里定义一个变量接收
+        //home路径下的list的这个变量的值，并使用list这个变量把它储存起来，注意getIn方法是由react-redux提供的
+        //一种简洁的链式路径，否则就必须很麻烦的写成     list: state.get('home').get('list')
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        handlePageChange(page, totalPage) {
-            dispatch(actionsCreators.getWriterInfo())
-            if (page < totalPage) {
-                dispatch(actionsCreators.changePage())
-            }
-            else {
-                dispatch(actionsCreators.changePage(1))
-
-            } 
+        aa(){
+            dispatch(actionsCreators.getWriterInfo());
+            //2.aa（）会用引用进来的actionsCreators里的getWriterInfo（）方法进行ajax call
         }
     }
 }
-
+//6.1 通过connect方法，我们把这个页面上的触发器和store联系了起来，同时，只要store的数据发生变化
+//这里也能拿到同步数据
 export default connect(mapStateToProp, mapDispatchToProps)(Writer)
