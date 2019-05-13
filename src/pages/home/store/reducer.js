@@ -41,7 +41,6 @@ const defaultState = fromJS({
 });
 
 export default (state = defaultState, action) => {
-    console.log(state,action)
     switch (action.type) {
         case constants.MOUSE_ENTER:
         return state.set('mouseIn' ,true)

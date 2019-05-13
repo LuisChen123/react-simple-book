@@ -30,8 +30,8 @@ export const getWriterInfo = () =>{
         })
     }
 }
-//3.因为在writer.js里我们调用了getWriterInfo（）方法，在这个我们拿到了ajax call传回的数据。
+//3.3因为在writer.js里我们调用了getWriterInfo（）方法，在这个我们定义如何ajax call传回的数据和如何使用
 //这个就是用redux-thunk提供的中间件进行了改造，同时我在getWriterInfo（）里调用并把它派发出去自定义的mygetWriterInfo（），
 //因为mygetWriterInfo已经帮我改造好了拿回来数据，也就是writerInfo，这个时候，它把这些改造好的数据通过dispatch方法传输给
 //reducer
-//下一步  ===reducer.js里接收数据
+//下一步  reducer ===》

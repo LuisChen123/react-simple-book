@@ -1,13 +1,11 @@
 import styled from 'styled-components';
 
-export const HomeWrapper = styled.div
-    `
+export const HomeWrapper = styled.div`
 overflow:hidden;
 width:960px;
 margin: 0 auto;
 `
-export const HomeLeft = styled.div
-    `
+export const HomeLeft = styled.div`
 float:left;
 margin-left:15px;
 padding-top:30px;
@@ -16,23 +14,19 @@ width:625px;
  width:625px;
  heigth:270px;
 }
-
 `
-export const HomeRight = styled.div
-    `
+export const HomeRight = styled.div`
 width:240px
 float:right;
 position: relative;
 `
-export const TopicWrapper = styled.div
-    `
+export const TopicWrapper = styled.div`
 padding: 20px 0 10px 0;
 overflow:hidden;
 margin-left:-18px;
 border-bottom:1px solid #dcdcdc;
 `
-export const TopicItem = styled.div
-    `
+export const TopicItem = styled.div`
 float:left;
 height:56px;
 line-height:72px;
@@ -52,8 +46,7 @@ border-radius:4px;
 }
 `
 
-export const ListItem = styled.div
-    `
+export const ListItem = styled.div`
 overflow:hidden;
 padding:20px 0;
 border-bottom:1px solid #dcdcdc;
@@ -65,8 +58,7 @@ border-bottom:1px solid #dcdcdc;
     border-radius:10px; 
 }
 `
-export const ListInfo = styled.div
-    `
+export const ListInfo = styled.div`
 width:500px;
 float:left;
 .title{
@@ -82,15 +74,10 @@ float:left;
     color: #999;
 }
 `
-export const RecommendUl = styled.ul
-    `
+export const RecommendUl = styled.ul`
 width:280px;
 `
-
-export const link = styled.a.attrs({
-    href: '/'
-})
-    `
+export const link = styled.a.attrs({href: '/'})`
 width: 280px;
 height: 50px;
 margin-bottom: 6px;
@@ -101,8 +88,7 @@ padding-top: 30px;
     width: 280px;
     height: 50px;
 `
-export const RecommendLi = styled.li
-    `
+export const RecommendLi = styled.li`
 width: 280px;
 height: 50px;
 margin-bottom: 6px;
@@ -113,9 +99,7 @@ padding-top: 30px;
     width: 280px;
     height: 50px;
 `
-
-export const QRcodeBox = styled.div
-    `
+export const QRcodeBox = styled.div`
 overflow:hidden;
 box-sizing: border-box;
 margin: 20px 0 30px 0;
@@ -143,8 +127,7 @@ cursor:pointer;
     float:left;
 }
 `
-export const LargeQR = styled.div
-    `
+export const LargeQR = styled.div`
     border: 1px solid #dcdcdc;
     box-shadow: 0px 1px 10px #888888;
     width: 200px;
@@ -162,12 +145,10 @@ export const LargeQR = styled.div
     padding: 10px;
 }
 `
-export const WriterWrapper = styled.div
-    `
+export const WriterWrapper = styled.div`
 width:100%;
 `
-export const WriterTop = styled.div
-    `
+export const WriterTop = styled.div`
 overflow:hidden;
 .leftTitle{
     display:inline-block;
@@ -189,8 +170,7 @@ overflow:hidden;
     cursor:pointer;
 }
 `
-export const WriterUl = styled.ul
-`
+export const WriterUl = styled.ul`
 .writerList{
     overflow:hidden;
     margin: 10px 0px;
@@ -203,8 +183,7 @@ export const WriterUl = styled.ul
     border-radius: 50%;   
 }
 `
-export const FirstLine = styled.div
-`
+export const FirstLine = styled.div`
 overflow:hidden;
 width:79%;
 height:30px;
@@ -228,8 +207,7 @@ box-sizing: border-box;
 
     }
 `
-export const SecLine = styled.div
-`
+export const SecLine = styled.div`
 overflow:hidden;
 width:79%;
 height:30px;
@@ -248,8 +226,7 @@ box-sizing: border-box;
      color: #969696;
 }
 `
-export const SeeMore = styled.div
-`
+export const SeeMore = styled.div`
 width:100%;
 box-sizing: border-box;
 padding: 7px 7px 7px 12px;

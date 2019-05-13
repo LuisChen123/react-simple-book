@@ -11,19 +11,19 @@ import {
 } from '../style';
 import { GlobalStyled } from '../../../static/inconfont/iconfont';
 import { actionsCreators } from '../store';
-import { CSSTransition } from 'react-transition-group';
+// import { CSSTransition } from 'react-transition-group';
 
 class Writer extends Component {
 //ajax call的流程：
-//1.现在writer.js页面上触发，这个例子是用componentDidMount生命周期里的aa()进行触发
-
+//1.现在writer.js页面上触发，这个例子是在componentDidMount生命周期里调用自定义的getInfo()进行触发
     componentDidMount(){
-        console.log(this.props)
-        this.props.aa();
+        const {getInfo} =this.props;
+        getInfo();
     }
     getWriterList() {
-        const { page, list } = this.props
+        const {list} = this.props
         console.log(list)
+    
         return (
             <li
                 className="writerList"
@@ -36,10 +36,10 @@ class Writer extends Component {
                     />
                 </a>
                 <FirstLine>
-                    <a href="">
+                    <a href="/">
                         <p className='addToFav'>+关注</p>
                     </a>
-                    <a>
+                    <a href="/">
                         <h3 className='wirterName'>ssss</h3>
                     </a>
                 </FirstLine>
@@ -93,9 +93,10 @@ const mapStateToProp = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        aa(){
+        getInfo(){
             dispatch(actionsCreators.getWriterInfo());
-            //2.aa（）会用引用进来的actionsCreators里的getWriterInfo（）方法进行ajax call
+            //2.getInfo（）会派发从actionsCreators里的getWriterInfo（）方法进行ajax call
+            //  ===》进入actionsCreators里，定义getWriterInfo（）如何ajax call
         }
     }
 }
