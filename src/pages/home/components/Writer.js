@@ -14,40 +14,44 @@ import { actionsCreators } from '../store';
 // import { CSSTransition } from 'react-transition-group';
 
 class Writer extends Component {
-//ajax call的流程：
-//1.现在writer.js页面上触发，这个例子是在componentDidMount生命周期里调用自定义的getInfo()进行触发
-    componentDidMount(){
-        const {getInfo} =this.props;
+    //ajax call的流程：
+    //1.现在writer.js页面上触发，这个例子是在componentDidMount生命周期里调用自定义的getInfo()进行触发
+    componentDidMount() {
+        const { getInfo } = this.props;
         getInfo();
     }
     getWriterList() {
-        const {list} = this.props
-        console.log(list)
-    
+        const { list } = this.props
+        const newlist = list.toJS();//用toJS（）方法转化拿到的list，否则无法使用
         return (
-            <li
-                className="writerList"
-            >
-                <a href='/'>
-                    <img
-                        className="avatar"
-                        src="//upload.jianshu.io/users/upload_avatars/4263857/34d7b217-7338-48fe-81a1-98367fecdbee.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/96/h/96/format/webp"
-                        alt=""
-                    />
-                </a>
-                <FirstLine>
-                    <a href="/">
-                        <p className='addToFav'>+关注</p>
-                    </a>
-                    <a href="/">
-                        <h3 className='wirterName'>ssss</h3>
-                    </a>
-                </FirstLine>
-                <SecLine>
-                    <p className='likes'>39.9k喜欢</p>
-                    <p className="totalWords">写了138.6k字 · </p>
-                </SecLine>
-            </li>
+            newlist.map((item) => {
+                return (
+                    <li
+                        className="writerList"
+                        key={item.id}
+                    >
+                        <a href='/'>
+                            <img
+                                className="avatar"
+                                src={item.avatar_source}
+                                alt=""
+                            />
+                        </a>
+                        <FirstLine>
+                            <a href="/">
+                                <p className='addToFav'>+关注</p>
+                            </a>
+                            <a href="/">
+                                <h3 className='wirterName'>{item.nickname}</h3>
+                            </a>
+                        </FirstLine>
+                        <SecLine>
+                            <p className='lsikes'>{item.total_likes_count}喜欢</p>
+                            <p className="totalWords">写了{item.total_wordage}字</p>
+                        </SecLine>
+                    </li>
+                )
+            })
         )
     }
     render() {
@@ -93,7 +97,7 @@ const mapStateToProp = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getInfo(){
+        getInfo() {
             dispatch(actionsCreators.getWriterInfo());
             //2.getInfo（）会派发从actionsCreators里的getWriterInfo（）方法进行ajax call
             //  ===》进入actionsCreators里，定义getWriterInfo（）如何ajax call
