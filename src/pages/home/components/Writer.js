@@ -46,7 +46,7 @@ class Writer extends Component {
                             </a>
                         </FirstLine>
                         <SecLine>
-                            <p className='lsikes'>{item.total_likes_count}喜欢</p>
+                            <p className='likes'>{item.total_likes_count}喜欢</p>
                             <p className="totalWords">写了{item.total_wordage}字</p>
                         </SecLine>
                     </li>
