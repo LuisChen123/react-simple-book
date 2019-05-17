@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { PureComponent, Fragment } from 'react'
 import { connect } from 'react-redux';
 import {
     WriterWrapper,
@@ -11,9 +11,10 @@ import {
 } from '../style';
 import { GlobalStyled } from '../../../static/inconfont/iconfont';
 import { actionsCreators } from '../store';
+import { actionCreators } from '../../../commom/header/store';
 // import { CSSTransition } from 'react-transition-group';
 
-class Writer extends Component {
+class Writer extends PureComponent {
     //ajax call的流程：
     //1.现在writer.js页面上触发，这个例子是在componentDidMount生命周期里调用自定义的getInfo()进行触发
     componentDidMount() {
@@ -46,9 +47,9 @@ class Writer extends Component {
                             </a>
                         </FirstLine>
                         <SecLine>
-                            <p className='lsikes'>{item.total_likes_count}喜欢</p>
+                            <p className='likes'>{item.total_likes_count}喜欢</p>
                             <p className="totalWords">写了{item.total_wordage}字</p>
-                        </SecLine>
+                        </SecLine> 
                     </li>
                 )
             })
@@ -92,15 +93,27 @@ const mapStateToProp = (state) => {
         //也就是说，当store里的数据一旦发生变化，这个页面会自动获取最新的数据，我们在这里定义一个变量接收
         //home路径下的list的这个变量的值，并使用list这个变量把它储存起来，注意getIn方法是由react-redux提供的
         //一种简洁的链式路径，否则就必须很麻烦的写成     list: state.get('home').get('list')
+        page:state.getIn(['home','Page']),
+        totalPage:state.getIn(['home','totalPage'])
+
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
+   
     return {
         getInfo() {
             dispatch(actionsCreators.getWriterInfo());
             //2.getInfo（）会派发从actionsCreators里的getWriterInfo（）方法进行ajax call
-            //  ===》进入actionsCreators里，定义getWriterInfo（）如何ajax call
+            //  ===》进入actionsCreators里，定义getWriterInfo（）如何ajax call  
+        },
+        handlePageChange(page,totalPage){
+            if(page < totalPage){
+                dispatch(actionCreators.changePage(page + 1 ,totalPage))
+            }
+            else{
+                dispatch(actionCreators.changePage(page,totalPage))
+            }
         }
     }
 }

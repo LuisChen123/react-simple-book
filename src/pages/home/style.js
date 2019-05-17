@@ -201,7 +201,6 @@ box-sizing: border-box;
 .wirterName{
     float: left;
     padding-top: 5px;
-    margin-right: 60px;
     font-size: 14px;
     display: block;
 
@@ -239,4 +238,26 @@ height:35px;
     color: #787878;
     text-align: center;
 }
+`
+export const LoadMore = styled.div`
+width:100%;
+height:40px;
+line-height:40px;
+margin:30px 0;
+background:#a5a5a5;
+text-align:center;
+border-radius:20px;
+cursor:pointer;
+`
+
+export const BackTop = styled.div`
+position:fixed;
+right:0;
+bottom:30px;
+width:60px;
+height:60px;
+line-height:60px;
+text-align:center;
+border:1px solid #ccc;
+
 `

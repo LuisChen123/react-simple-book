@@ -10,14 +10,78 @@ export const mouseLeave = () =>({
     type:constants.MOUSE_LEAVE
 })
 
+export const changePage = (page) =>({
+    type:constants.CHANGE_PAGE,
+    page
+})
+
+const addHomeList = (list,nextPage) =>({
+    type: constants.ADD_HOME_LIST,
+    list: fromJS(list),
+    nextPage
+})
+
+export const getMoreList = (page) =>{
+    return (dispatch) =>{
+            axios.get('/api/homeList.json?page=' + page).then((res)=>{
+                const result = res.data.data;
+                dispatch(addHomeList(result,(page + 1)))
+            }).catch((err)=>{
+                console.log(err)
+            })
+    }
+}
+
+const addRecommentList =(result) =>({
+    type:constants.ADD_RECOMMENTLIST,
+    recommentList: fromJS(result.recommentList)
+})
+
+export const recommentList = () =>{
+        return (dispatch) =>{
+            axios.get('/api/home.json').then((res)=>{
+                const result = res.data.data
+                dispatch(addRecommentList(result))
+            }).catch((err)=>{
+                console.log(err)
+            })
+        }
+}   
+
+
+const changeHomeData = (result) =>({
+    type:constants.CHANGE_HOME_DATA,
+    articleList: result.articleList,
+    recommendList:result.recommendList,
+    topicList:result.topicList,
+})
+
+export const getHomeInfo = () =>{
+    return (dispatch) =>{
+        axios.get('/api/home.json').then((res)=>{      
+            const result = res.data
+            const action = changeHomeData(result)
+            dispatch(action);
+        }).catch((err)=>{
+            console.log(err)
+        })
+    }
+}
+
+export const toggleTopShow = (show) =>({
+    type:constants.TOGGLE_SCROOL_TOP,
+    show
+})
+
 
 //3.1 我在这里定义了一个方法，主要是为了方便维护和管理，mygetWriterInfo =（data）里的data是
 //ajax call拿回来的数据，直接注入进去，给type分配一个名字，这个名字已经在 constants里进行过了定义，
 //然后我们在用immutable 提供的fromJS 方法改造拿回来的数据，使之成为一个immutable的数据，这里就不会报错
 //下一步  ===》constant.js里改造
 const mygetWriterInfo = (data) =>({
-    type:constants.INFO,
-    data:fromJS(data)
+    type:constants.MY_GET_WRITER_INFO,
+    data:fromJS(data),
+    totalPage: Math.ceil(data.length /5)
 })
 export const getWriterInfo = () =>{
     return (dispatch) =>{

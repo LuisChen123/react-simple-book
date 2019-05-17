@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import {
     HeaderWrapper,
@@ -17,8 +17,9 @@ import {
 import { GlobalStyled } from '../../static/inconfont/iconfont';
 import { CSSTransition } from 'react-transition-group';
 import { actionCreators } from './store';
+import {Link} from 'react-router-dom';
 
-class Header extends Component {
+class Header extends PureComponent {
     getListArea() {
         const { focused ,mouseIn, list ,page,totalPage, handleMouseEnter, handleMouseLeave,handleChangePage} = this.props;
         const newList = list.toJS();
@@ -58,7 +59,9 @@ class Header extends Component {
         return (
             <HeaderWrapper>
                 <GlobalStyled />
+                <Link to="/">
                 <Logo />
+                </Link>
                 <InnerContainer>
                     <NavList>
                         <NavItem className="left">首页</NavItem>
