@@ -32,7 +32,7 @@ class Login extends PureComponent {
                     <Remember>
                         <label className={actived ? "" : "hidden"}>
                         <input className={actived ? "" : "hidden"} 
-                        type="checkbox" onChange={()=>handleRemenberMe(e)} name="check" />记住我</label>
+                        type="checkbox" onChange={()=>handleRemenberMe()} name="check" />记住我</label>
                         <label className={actived ? "" : "hidden"}>登录遇到问题?</label>
                     </Remember>
                     <button className="loginButton" className={actived ? "hidden" : "loginButton"}>注册</button>
@@ -57,8 +57,7 @@ const mapDispatch = (dispatch) => ({
             dispatch(action)
         }
     },
-    handleRemenberMe(e){
-        console.log(e)
+    handleRemenberMe(){
         const action = actionCreators.ifRemenberMe();
         dispatch(action);
     }
