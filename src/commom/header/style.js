@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import logoPic from '../../static/logo.png'
 export const HeaderWrapper = styled.div` 
+z-index:99;
    height:58px;
    min-width: 768px;
    max-width: 1440px;
@@ -47,7 +48,7 @@ position: relative;
     }
 }
 `
-export const SearhBar = styled.input.attrs({placeholder: 'Search'})`
+export const SearhBar = styled.input.attrs({ placeholder: 'Search' })`
 box-sizing:border-box;
 width:160px;
 border:none;
