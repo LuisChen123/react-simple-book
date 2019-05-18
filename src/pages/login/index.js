@@ -12,7 +12,7 @@ import { actionCreators } from './store'
 class Login extends PureComponent {
 
     render() {
-        const { actived, handleSwitch } = this.props
+        const { actived, handleSwitch ,remenber,handleRemenberMe} = this.props
         return (
             <LoginWrapper>
                 <LoginBox>
@@ -32,7 +32,7 @@ class Login extends PureComponent {
                     <Remember>
                         <label className={actived ? "" : "hidden"}>
                         <input className={actived ? "" : "hidden"} 
-                        type="checkbox" onChange={()=>handleRemenberMe()} name="check" />记住我</label>
+                        type="checkbox" onChange={()=>handleRemenberMe(remenber)} name="check" />记住我</label>
                         <label className={actived ? "" : "hidden"}>登录遇到问题?</label>
                     </Remember>
                     <button className="loginButton" className={actived ? "hidden" : "loginButton"}>注册</button>
@@ -44,7 +44,8 @@ class Login extends PureComponent {
 }
 
 const mapState = (state) => ({
-    actived: state.getIn(['login', 'actived'])
+    actived: state.getIn(['login', 'actived']),
+    remenber:state.getIn(['login','remenber'])
 })
 
 const mapDispatch = (dispatch) => ({
@@ -57,9 +58,15 @@ const mapDispatch = (dispatch) => ({
             dispatch(action)
         }
     },
-    handleRemenberMe(){
-        const action = actionCreators.ifRemenberMe();
+    handleRemenberMe(remenber){
+        console.log(remenber)  
+        if(remenber === true){
+        const action = actionCreators.ifRemenberMe(false);
         dispatch(action);
+        }else{
+        const action = actionCreators.ifRemenberMe(true);
+        dispatch(action);
+        }
     }
 
 })

@@ -5,8 +5,12 @@ export const switchType = (actived) =>({
     actived
 })
 
-export const ifRemenberMe = () =>({
+export const ifRemenberMe = (remenber) =>({
     type:constants.IF_REMENBER_ME,
+    remenber
 })
+
+
+
 
 
