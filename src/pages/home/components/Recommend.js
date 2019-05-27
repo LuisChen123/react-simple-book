@@ -17,7 +17,7 @@ class Recommend extends PureComponent {
                 <LargeQR>
                     <img
                         className="QR-Pic"
-                        src="https://cdn2.jianshu.io/assets/web/download-index-side-qrcode-cb13fc9106a478795f8d10f9f632fccf.png"
+                        src="//upload.jianshu.io/admin_banners/web_images/4658/ef2cf6b3478da3cb7482f228212ecb59603fd408.png?imageMogr2/auto-orient/strip|imageView2/1/w/1250/h/540"
                         alt=""
                     >
                     </img>
@@ -26,8 +26,6 @@ class Recommend extends PureComponent {
         }
     }
     componentDidMount(){
-        // this.props.getRecommendList()
-        // console.log(this.props.list)
     }
     check(){
         const {list} = this.props;
@@ -68,7 +66,6 @@ class Recommend extends PureComponent {
                 <GlobalStyled/>
                {check}
                 {this.showBigQR()}
-                
                 <QRcodeBox
                     onMouseEnter={handleOnMouseEnter}
                     onMouseLeave={handleOnMouseLeave}
@@ -106,7 +103,4 @@ const mapDispatch = (dispatch) => {
     }
 
 }
-
-
-
 export default connect(mapState, mapDispatch)(Recommend)

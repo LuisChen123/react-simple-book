@@ -17,36 +17,37 @@ import {
 import { GlobalStyled } from '../../static/inconfont/iconfont';
 import { CSSTransition } from 'react-transition-group';
 import { actionCreators } from './store';
-import {Link} from 'react-router-dom';
+import { actionCreators as loginActionCreators } from '../../pages/login/store'
+import { Link } from 'react-router-dom';
 
 class Header extends PureComponent {
     getListArea() {
-        const { focused ,mouseIn, list ,page,totalPage, handleMouseEnter, handleMouseLeave,handleChangePage} = this.props;
+        const { focused, mouseIn, list, page, totalPage, handleMouseEnter, handleMouseLeave, handleChangePage } = this.props;
         const newList = list.toJS();
         const pageList = []
 
-        if(newList.length){
-            for(let i = (page-1) * 10; i < page * 10; i++){
+        if (newList.length) {
+            for (let i = (page - 1) * 10; i < page * 10; i++) {
                 pageList.push(
                     <SearchInfoItem key={newList[i]}>{newList[i]}</SearchInfoItem>
                 )
             }
-        } 
-       
+        }
+
         if (focused || mouseIn) {
             return (
-                <SearchInfo onMouseEnter = {handleMouseEnter}
-                            onMouseLeave = {handleMouseLeave}
+                <SearchInfo onMouseEnter={handleMouseEnter}
+                    onMouseLeave={handleMouseLeave}
                 >
                     <SearchInfoTitle>
                         热门搜索
-                    <SearchInfoTitleSwitch onClick={()=>handleChangePage(page, totalPage,this.spinIcon)}>
-                    <i ref={(icon) => {this.spinIcon = icon}} className="iconfont spin">&#xe851;</i>
-                    换一批
+                    <SearchInfoTitleSwitch onClick={() => handleChangePage(page, totalPage, this.spinIcon)}>
+                            <i ref={(icon) => { this.spinIcon = icon }} className="iconfont spin">&#xe851;</i>
+                            换一批
                     </SearchInfoTitleSwitch>
                     </SearchInfoTitle>
-                    <SearchInfoList> 
-                           {pageList}            
+                    <SearchInfoList>
+                        {pageList}
                     </SearchInfoList>
                 </SearchInfo>
             )
@@ -55,12 +56,12 @@ class Header extends PureComponent {
         }
     }
     render() {
-        const { focused ,handlefocus,handleblur,list } = this.props;
+        const { focused, handlefocus, handleblur, list, isLogin, logout } = this.props;
         return (
             <HeaderWrapper>
                 <GlobalStyled />
                 <Link to="/">
-                <Logo />
+                    <Logo />
                 </Link>
                 <InnerContainer>
                     <NavList>
@@ -75,7 +76,7 @@ class Header extends PureComponent {
                                 >
                                     <SearhBar
                                         className={focused ? 'focused' : ''}
-                                        onFocus={()=>handlefocus(list)}
+                                        onFocus={() => handlefocus(list)}
                                         onBlur={handleblur}
                                     />
                                 </CSSTransition>
@@ -84,12 +85,40 @@ class Header extends PureComponent {
                                 {this.getListArea()}
                             </SearchWrapper>
                         </NavItem>
-                        <NavItem className="right writing">
-                            <i className="iconfont">&#xe616;</i>
-                            写文章
-                        </NavItem>
-                        <NavItem className="right register">注册</NavItem>
-                        <NavItem className="right loginGrey">登录</NavItem>
+                        {
+                            isLogin ?
+                                <Link to={'/'}>
+                                    <NavItem className="right writing"  >
+                                        <i className="iconfont">&#xe616;</i>
+                                        写文章
+                                </NavItem>
+                                </Link>
+                                :
+                                <Link to={'/login/' + 1}>
+                                    <NavItem className="right writing"  >
+                                        <i className="iconfont">&#xe616;</i>
+                                        写文章
+                                </NavItem>
+                                </Link>
+                        }
+                        {
+                            isLogin ?
+                                <Link to={'/'}>
+                                    <NavItem className="right loginGrey" onClick={logout}>退出</NavItem>
+                                </Link>
+                                :
+                                <Link to={'/login/' + 2}>
+                                    <NavItem className="right loginGrey">登录</NavItem>
+                                </Link>
+                        }
+                        {
+                            isLogin ?
+                                "" :
+                                <Link to={'/login/' + 1} >
+                                    <NavItem className="right register">注册</NavItem>
+                                </Link>
+                        }
+
                         <NavItem className="right">Beta</NavItem>
                         <NavItem className="right">
                             <i className="iconfont">&#xe600;</i>
@@ -106,15 +135,16 @@ const mapStateToProps = (state) => {
         focused: state.getIn(['header', 'focused']),
         // state.get('header').get('focused'),
         list: state.getIn(['header', 'list']),
-        page:state.getIn(['header','page']),
-        totalPage: state.getIn(['header','totalPage']),
-        mouseIn:state.getIn(['header','mouseIn']),
+        page: state.getIn(['header', 'page']),
+        totalPage: state.getIn(['header', 'totalPage']),
+        mouseIn: state.getIn(['header', 'mouseIn']),
+        isLogin: state.getIn(['login', 'isLogin'])
     }
-} 
+}
 const mapDispatchToProps = (dispatch) => {
     return {
         handlefocus(list) {
-            if(list.size === 0){
+            if (list.size === 0) {
                 dispatch(actionCreators.getList());
             }
             dispatch(actionCreators.searchFocus());
@@ -122,28 +152,31 @@ const mapDispatchToProps = (dispatch) => {
         handleblur() {
             dispatch(actionCreators.searchBlur())
         },
-        handleMouseEnter(){
+        handleMouseEnter() {
             dispatch(actionCreators.mouseEnter())
         },
-        handleMouseLeave(){
+        handleMouseLeave() {
             dispatch(actionCreators.mouseLeave())
         },
-        handleChangePage(page, totalPage,spin){
-            let orginAngle = spin.style.transform.replace(/[^0-9]/ig, '');   
-            if(orginAngle){
-                orginAngle = parseInt(orginAngle,10)
-            }else{
-                orginAngle=0
+        handleChangePage(page, totalPage, spin) {
+            let orginAngle = spin.style.transform.replace(/[^0-9]/ig, '');
+            if (orginAngle) {
+                orginAngle = parseInt(orginAngle, 10)
+            } else {
+                orginAngle = 0
             }
-            spin.style.transform ='rotate(' + (orginAngle + 360) + 'deg)';
+            spin.style.transform = 'rotate(' + (orginAngle + 360) + 'deg)';
 
-            if(page < totalPage){
+            if (page < totalPage) {
                 dispatch(actionCreators.changePage(page + 1))
             }
-            else{
+            else {
                 dispatch(actionCreators.changePage(1))
             }
-        }      
+        },
+        logout() {
+            dispatch(loginActionCreators.logout())
+        }
     }
 }
 

@@ -249,15 +249,13 @@ text-align:center;
 border-radius:20px;
 cursor:pointer;
 `
-
 export const BackTop = styled.div`
 position:fixed;
 right:0;
 bottom:30px;
-width:60px;
+width:110px;
 height:60px;
 line-height:60px;
 text-align:center;
 border:1px solid #ccc;
-
 `
