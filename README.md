@@ -4,7 +4,7 @@ https://www.jianshu.com/<br>
 immutable,<br>
 react-dom,<br>
 react-loadable,<br>
-react-redu",<br>
+react-redux",<br>
 react-router-dom,<br>
 react-transition-group,<br>
 redux,<br>
