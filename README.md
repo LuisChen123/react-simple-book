@@ -4,11 +4,11 @@ https://www.jianshu.com/<br>
 immutable,<br>
 react-dom,<br>
 react-loadable,<br>
-react-redux",<br>
+react-redux,<br>
 react-router-dom,<br>
 react-transition-group,<br>
 redux,<br>
 redux-immutable,<br>
-redux-thunk"<br>
+redux-thunk<br>
 styled-components<br>
 type "npm run start" to run this project.
